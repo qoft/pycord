@@ -52,6 +52,7 @@ from ..message import Attachment, Message
 from ..mixins import Hashable
 from ..object import Object
 from ..threads import Thread
+from ..channel import ForumChannel
 from ..user import BaseUser, User
 
 __all__ = (
@@ -892,6 +893,8 @@ class WebhookMessage(Message):
             thread = Object(self._thread_id)
         elif isinstance(self.channel, Thread):
             thread = Object(self.channel.id)
+        elif isinstance(self.channel, ForumChannel):
+            thread = Object(self.id)
 
         if attachments is MISSING:
             attachments = self.attachments or MISSING
